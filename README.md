@@ -1,2 +1,3 @@
-# ads-ea
-Code and materials for the Applied Data Science project (University of Bristol 2019)
+#Applied Data Science Project
+
+Code and materials for the Applied Data Science project. The unit is taught at the University of Bristol, Bristol, UK in 2019.
