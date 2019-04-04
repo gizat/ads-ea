@@ -1,6 +1,6 @@
 # Notes on geopandas
 
-This are my notes on transforming data into DataFrame and working with GeoPandas.
+This are my notes on working with GeoPandas.
 
 1. Tidy up your tables with coordinates, so that each cell contains exactly one coordinate value.
 
