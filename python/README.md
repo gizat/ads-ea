@@ -13,13 +13,13 @@
   * **Notice**: connMongo return database connection object. If you need to use pymongo, please utilise this.
 
 ### Example
-'''python
+```python
 import ads
 
 my_ads = ads.ads_mongo('IP_address')
 client = my_ads.connMongo('UserID', 'UserPassword', 'DatabaseName')
 my_ads.uploadData('CollectionName', "Filepath/test.csv")
 my_ads.downloadData('CollectionName', 'Filepath/new.csv', 'csv')
-'''
+```
 
 Still implementing...
