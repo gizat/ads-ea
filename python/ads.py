@@ -48,3 +48,29 @@ class ads_mongo:
 
         else:
             print("No exist format")
+
+    def collectionQuery(self, collection, operator, query = {}, save_in_local = False, filepath = 'result.csv'):
+        op = operator
+        if op == 'find':
+            cs = self.cli_db[collection].find(query)
+        elif op == 'aggregate':
+            cs = self.cli_db[collection].aggregate(query)
+        elif op == 'insert':
+            self.cli_db[collection].insert(query)
+            return
+        elif op == 'delete':
+            self.cli_db[collection].delete(query)
+            return
+        elif op == 'drop':
+            self.cli_db[collection].drop()
+            return
+        else:
+            print("Not exist operator")
+
+        df = pd.DataFrame(list(cs))
+        del df['_id']
+
+        if save_in_local == True:
+            df.to_csv(filepath, index=False)
+
+        return df
