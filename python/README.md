@@ -13,6 +13,7 @@
   * **Notice**: connMongo return database connection object. If you need to use pymongo, please utilise this.
 
 ### Example
+For Connection and Download / Upload
 ```python
 import ads
 
@@ -32,4 +33,35 @@ import ads
 # Same with above code
 ```
 
+For collection query
+```python
+query = {
+          "item" : "crab",
+          "price" : 20,
+          "quantity" : 4
+        }
+# args: Collection Name, Operator, Query, Bool(Save in local), Filepath
+my_ads.collectionQuery('orders', 'insert', query)
+
+data = my_ads.collectionQuery('orders', 'find')
+print(data)
+
+query = [
+   {
+      '$lookup': {
+         'from': "items",
+         'localField': "item",
+         'foreignField': "item",
+         'as': "fromItems"
+      }
+   },
+   {
+      '$replaceRoot': { 'newRoot': { '$mergeObjects': [ { '$arrayElemAt': [ "$fromItems", 0 ] }, "$$ROOT" ] } }
+   },
+   { '$project': { 'fromItems': 0 } }
+]
+
+data2 = my_ads.collectionQuery('orders', 'aggregate', query)
+print(data2)
+```
 Still implementing...
