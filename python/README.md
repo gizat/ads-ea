@@ -22,4 +22,14 @@ my_ads.uploadData('CollectionName', "Filepath/test.csv")
 my_ads.downloadData('CollectionName', 'Filepath/new.csv', 'csv')
 ```
 
+In jupyter notebook
+```python
+import sys
+sys.path.append('Filepath') # ex) /User/junghyun/workspace/
+
+import ads
+
+# Same with above code
+```
+
 Still implementing...
