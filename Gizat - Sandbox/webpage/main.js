@@ -15,6 +15,33 @@ var map = new mapboxgl.Map({
 // Add zoom and rotation controls to the map.
 map.addControl(new mapboxgl.NavigationControl());
 
+map.on('load', function() {
+    map.addSource('20-55-cropfields', {
+      'type': 'geojson',
+      'data': 'https://github.com/gizat/ads-ea/raw/master/Gizat%20-%20Sandbox/cropfields_4326/20-55-cropfields.json'
+      
+    });
+  
+    map.addLayer({
+      'id': 'cropfieldsLayer',
+      'type': 'fill',
+      'source': '20-55-cropfields',
+      'layout': {
+        'visibility': 'visible'
+      },
+      
+      'paint': {
+        'fill-color': 'skyblue',
+        'fill-outline-color': 'white',
+        'fill-opacity': 0.4
+      }
+    });
+  });
+
+
+
+
+/*
 
 map.on('load', function() {
     map.addSource('counties', {
@@ -38,3 +65,4 @@ map.on('load', function() {
     });
   });
   
+  */
