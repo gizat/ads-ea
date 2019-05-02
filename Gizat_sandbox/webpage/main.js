@@ -22,6 +22,11 @@ map.on('load', function() {
         'type': 'geojson',
         'data': 'http://localhost:8000/20-55-cropfields.geojson'
     });
+
+    map.addSource('wqSamples', {
+      'type': 'geojson',
+      'data': 'http://localhost:8000/nitrates.geojson'
+    });
   
     map.addLayer({
         'id': 'cropfieldsLayer',
@@ -31,10 +36,9 @@ map.on('load', function() {
           'visibility': 'visible'
         },
 
-
         'paint': {
           'fill-extrusion-color': {
-            'property': 'A1',
+            'property': 'A99G1',
             'stops': [
               [0, 'white'],
               [140, '#BFDF2D'],
@@ -46,16 +50,51 @@ map.on('load', function() {
           'fill-extrusion-opacity': 0.8,
           'fill-extrusion-base': 0
         }
+    });
+    
 
-        /*
+    map.addLayer({
+        'id': 'samplePoints',
+        'type': 'circle',
+        'source': 'wqSamples',
+        'layout': {
+          'visibility': 'visible'
+        },
+
         'paint': {
-          'fill-color': 'skyblue',
-          'fill-outline-color': 'white',
-          'fill-opacity': 0.4
+          'circle-color': {
+            'property': 'result',
+            'type': 'exponential',
+            'stops': [
+              [0, 'rgba(236,222,239,0)'],
+              [1, 'rgb(236,222,239)'],
+              [2, 'rgb(208,209,230)'],
+              [3, 'rgb(166,189,219)'],
+              [4, 'rgb(103,169,207)'],
+              [6, 'rgb(28,144,153)'],
+              [10, 'rgb(1,108,89)']
+            ]
+          },
+
+          'circle-radius': {
+            'property': 'result',
+            'type': 'exponential',
+            'stops': [
+              [{ zoom: 15, value: 1 }, 5],
+              [{ zoom: 15, value: 62 }, 10],
+              [{ zoom: 22, value: 1 }, 20],
+              [{ zoom: 22, value: 62 }, 50],
+            ]
+          }
         }
-        */
+        
     });
 });
 
-/*  Add choropleth  */
 
+map.on('click', 'samplePoints', function(e) {
+  new mapboxgl.Popup()
+    .setLngLat(e.features[0].geometry.coordinates)
+    .setHTML('<b>Index:</b> ' + e.features[0].properties.result)
+    .addTo(map);
+});
